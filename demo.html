@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>dome</title>
+    <style>
+        .dome {
+            width: 1200px;
+            height: 560px;
+            border: 1px solid pink;
+            margin: 100px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dome"></div>
+    <script src="./jquery-1.11.3.min.js"></script>
+    <script src="./echarts.min.js"></script>
+    <script>
+        $(function() {
+            // 基于准备好的dom，初始化echarts实例
+            var myPie = echarts.init(document.getElementsByClassName("dome")[0]);
+
+            var chart = {
+                // color: ['#ff8d52', '#48cfaf', '#ed87bf', '#ffcf52', '#ed5454', '#ff8d52', '#48cfaf', '#ed87bf'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: { // 触发有效
+                        type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: { //直角坐标系内绘图网格
+                    x: 140,
+                    y: 50,
+                    x2: 40,
+                    y2: 100,
+                },
+                xAxis: [{
+                    type: 'category',
+                    splitLine: {
+                        show: false
+                    },
+                    boundaryGap: true, //两端空白策略
+                    data: ['恐龙', '动物', '儿童安全知识', '科普', '中国军事', '交通工具', '军事装备', '海南特色物种'],
+                    axisLabel: {
+                        textStyle: {
+                            fontSize: 18,
+                            color: '#323232'
+                        },
+                    },
+                    axisTick: { //刻度线
+                        show: false
+                    },
+                    axisLine: { //坐标轴设置
+                        lineStyle: {
+                            color: '#090103',
+                            width: 2,
+                        }
+                    }
+                }],
+
+                yAxis: [{
+                    type: 'value',
+                    splitLine: {
+                        show: false
+                    },
+                    boundaryGap: [0, 0.1],
+                    axisLabel: {
+                        textStyle: {
+                            fontSize: 18,
+                            color: '#323232'
+                        }
+                    },
+                    axisTick: { //刻度线
+                        show: false
+                    },
+                    axisLine: { //坐标轴设置
+                        lineStyle: {
+                            color: '#090103',
+                            width: 2,
+                        }
+                    }
+                }],
+                series: [{
+                    name: '直接访问',
+                    type: 'bar',
+                    barWidth: 77, //柱图宽度
+                    data: [60, 120, 200, 100, 80, 10, 30, 8],
+                    //顶部数字展示pzr  
+                    itemStyle: {
+                        //通常情况下：
+                        normal: {　　　　　　　　　　　　 //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+                            label: {
+                                show: true, //是否展示  
+                                position: 'top', //数据值位置  
+                                textStyle: {
+                                    color: "#323232",
+                                    fontWeight: 'bolder',
+                                    fontSize: '18',
+                                    fontFamily: '微软雅黑',
+                                }
+                            },
+                            barBorderWidth: 2,
+                            barBorderColor: '#0c0208',
+                            color: function(params) {
+                                var colorList = ['#ff8d52', '#48cfaf', '#ed87bf', '#ffcf52', '#ed5454', '#ff8d52', '#48cfaf', '#ed87bf'];
+                                return colorList[params.dataIndex];
+                            }
+                        },
+                        //鼠标悬停时：
+                        emphasis: {
+                            shadowBlur: 20,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    },
+                }]
+            };
+
+            myPie.setOption(chart);
+        })
+    </script>
+</body>
+
+</html>
